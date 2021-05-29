@@ -6,40 +6,43 @@ namespace CatalogMigrations.Services.Mapper
 {
     public interface IBarcodeMapper
     {
-        IEnumerable<SupplierProductBarcode> GetMatchingProducts(
+        List<string> GetExistingProductLookups(
             List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB);
-        IEnumerable<SupplierProductBarcode> GetUniqueProductFromSku(
-            List<SupplierProductBarcode> supplierProductBarcodesA,
-            List<SupplierProductBarcode> supplierProductBarcodesB, 
-            IEnumerable<SupplierProductBarcode> productLookup);
 
+        IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(
+            List<SupplierProductBarcode> supplierProductBarcodesA,
+            List<SupplierProductBarcode> supplierProductBarcodesB,
+            List<string> productLookup);
     }
     
     public class BarcodeMapper : IBarcodeMapper
     {
      
-        public IEnumerable<SupplierProductBarcode> GetMatchingProducts(List<SupplierProductBarcode> supplierProductBarcodesA, 
+        public List<string> GetExistingProductLookups(List<SupplierProductBarcode> supplierProductBarcodesA, 
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {
-            var productList = new List<SupplierProductBarcode>();
-            
-            var resultSet = supplierProductBarcodesA
+            var matchingBarcodes = supplierProductBarcodesA
                 .Select(_ => _.Barcode)
                 .Intersect(supplierProductBarcodesB.Select(_ => _.Barcode)).ToList();
 
-            foreach (var barcode in resultSet)
-            {
-                var product = supplierProductBarcodesA.SingleOrDefault(_ => _.Barcode == barcode);
-                productList.Add(product);
-            }
-            return productList;
-        }
-
-        public IEnumerable<SupplierProductBarcode> GetUniqueProductFromSku(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
-            IEnumerable<SupplierProductBarcode> productLookup)
+            return matchingBarcodes;
+        } 
+        
+        public IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
+            List<string> productLookup)
         {
+            var newProductList = new List<SupplierProductBarcode>();
+            var combinedProducts = supplierProductBarcodesA.Concat(supplierProductBarcodesB).ToList();
             
+            foreach (var product in combinedProducts)
+            {
+                if (!productLookup.Contains(product.Barcode))
+                {
+                    newProductList.Add(product);
+                }
+            }
+            return newProductList;
         }
     }
 }

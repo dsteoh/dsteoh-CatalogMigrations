@@ -24,7 +24,7 @@ namespace CatalogMigrations.Services.Jobs
         public void TransformCatalog(List<SupplierProductBarcode> supplierProductBarcodesA, 
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {
-            var matchingProducts = _barcodeMapper.GetMatchingProducts(supplierProductBarcodesA, supplierProductBarcodesB).ToList();
+            var matchingBarcodeLookups = _barcodeMapper.GetExistingProductLookups(supplierProductBarcodesA, supplierProductBarcodesB);
         }
     }
 }
