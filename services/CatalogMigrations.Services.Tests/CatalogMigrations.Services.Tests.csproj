@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\shared\CatalogMigrations.DataModels\CatalogMigrations.DataModels.csproj" />
+    <ProjectReference Include="..\CatalogMigrations.Services\CatalogMigrations.Services.csproj" />
   </ItemGroup>
 
 </Project>

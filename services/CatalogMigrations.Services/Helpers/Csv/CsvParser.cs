@@ -1,33 +1,43 @@
-﻿using CsvHelper;
+﻿using System;
+using CsvHelper;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 using CatalogMigrations.DataModels.Models;
+using CatalogMigrations.Services.Helpers.Csv.Mappers;
 
 namespace CatalogMigrations.Services.Helpers.Csv
 {
-    public class CsvHelper
+    public class CsvParser : ICsvParser
     {
-        public CsvHelper()
-        {
-            
-        }
-        public List<Catalog> ConvertCatalogCsvToList()
+        public CsvParser()
         {
             
         }
         
-        public List<Supplier> ConvertSupplierCsvToList()
+        public List<Catalog> ParseToCatalogsToList(string path)
         {
-            
+            using var streamReader = new StreamReader(path);
+            using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
+            csvReader.Context.RegisterClassMap<CatalogMapper>();
+            return csvReader.GetRecords<Catalog>().ToList();
         }
         
-        public List<SupplierProductBarcode> ConverSupplierProductBarcodeCsvToList()
+        public List<Supplier> ParseToSupplierToList(string path)
         {
-            
+            using var streamReader = new StreamReader(path);
+            using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
+            csvReader.Context.RegisterClassMap<SupplierMapper>();
+            return csvReader.GetRecords<Supplier>().ToList();
         }
         
-        public  ConvertListToCsv()
+        public List<SupplierProductBarcode> ParseToSupplierProductBarcodeToList(string path)
         {
-            
+            using var streamReader = new StreamReader(path);
+            using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
+            csvReader.Context.RegisterClassMap<SupplierProductBarcodeMapper>();
+            return csvReader.GetRecords<SupplierProductBarcode>().ToList();
         }
     }
 }
