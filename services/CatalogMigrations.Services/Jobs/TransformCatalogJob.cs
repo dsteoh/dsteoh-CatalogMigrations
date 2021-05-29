@@ -23,7 +23,7 @@ namespace CatalogMigrations.Services.Jobs
             
         }
 
-        public List<SupplierProductBarcode> GetMatchingBarcode(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode>supplierProductBarcodesB)
+        public IEnumerable<SupplierProductBarcode> GetMatchingBarcode(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode>supplierProductBarcodesB)
         {
             var productList = new List<SupplierProductBarcode>();
             
