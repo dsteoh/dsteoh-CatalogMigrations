@@ -22,21 +22,5 @@ namespace CatalogMigrations.Services.Jobs
         {
             
         }
-
-        public IEnumerable<SupplierProductBarcode> GetMatchingBarcode(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode>supplierProductBarcodesB)
-        {
-            var productList = new List<SupplierProductBarcode>();
-            
-            var resultSet = supplierProductBarcodesA
-                .Select(_ => _.Barcode)
-                .Intersect(supplierProductBarcodesB.Select(_ => _.Barcode)).ToList();
-
-            foreach (var barcode in resultSet)
-            {
-                var product = supplierProductBarcodesA.SingleOrDefault(_ => _.Barcode == barcode);
-                productList.Add(product);
-            }
-            return productList;
-        }
     }
 }
