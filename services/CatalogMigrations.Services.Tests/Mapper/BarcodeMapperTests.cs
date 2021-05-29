@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
 using CatalogMigrations.Services.Helpers.Csv;
