@@ -1,5 +1,4 @@
-﻿using System;
-using CsvHelper;
+﻿using CsvHelper;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
