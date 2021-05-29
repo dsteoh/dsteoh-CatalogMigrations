@@ -34,6 +34,12 @@ namespace CatalogMigrations.Services.Tests.Jobs
                     Sku = "1111-1111-1111",
                     Barcode = "z2783613083817",
                     SupplierId = 1
+                },
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613083800",
+                    SupplierId = 1
                 }
             };
             
@@ -50,12 +56,23 @@ namespace CatalogMigrations.Services.Tests.Jobs
                     Sku = "2222-1111-1111",
                     Barcode = "z2783613083800",
                     SupplierId = 1
+                },
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613083801",
+                    SupplierId = 1
+                },
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613093800",
+                    SupplierId = 1
                 }
             };
 
             var matchedProducts = _transformCatalogJob.GetMatchingBarcode(barcodeA, barcodeB);
-            matchedProducts.Single().Barcode.Should().Equals("z2783613083817");
-         
+            matchedProducts.Single().Barcode.Should().Be("z2783613083800");
         }
     }
 }
