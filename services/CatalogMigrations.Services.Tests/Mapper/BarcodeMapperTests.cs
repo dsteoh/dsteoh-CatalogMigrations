@@ -3,6 +3,7 @@ using System.Linq;
 using CatalogMigrations.DataModels.Models;
 using CatalogMigrations.Services.Helpers.Csv;
 using CatalogMigrations.Services.Jobs;
+using CatalogMigrations.Services.Mapper;
 using FluentAssertions;
 using Moq;
 using Xunit;
@@ -11,7 +12,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
 {
     public class BarcodeMapperTests
     {
-        private TransformCatalogJob _barcodeMapper;
+        private BarcodeMapper _barcodeMapper;
 
         public BarcodeMapperTests()
         {
@@ -65,7 +66,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 }
             };
 
-            var matchedProducts = _barcodeMapper.GetMatchingBarcode(barcodeA, barcodeB);
+            var matchedProducts = _barcodeMapper.GetMatchingProducts(barcodeA, barcodeB);
             matchedProducts.Single().Barcode.Should().Be("z2783613083800");
         }
     }

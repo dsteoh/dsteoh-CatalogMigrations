@@ -12,8 +12,4 @@
     <ProjectReference Include="..\..\shared\CatalogMigrations.DataModels\CatalogMigrations.DataModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mapper" />
-  </ItemGroup>
-
 </Project>
