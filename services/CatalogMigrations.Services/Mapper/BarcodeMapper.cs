@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
 
@@ -6,29 +6,42 @@ namespace CatalogMigrations.Services.Mapper
 {
     public interface IBarcodeMapper
     {
-        IEnumerable<SupplierProductBarcode> GetMatchingProducts(List<SupplierProductBarcode> supplierProductBarcodesA,
+        List<string> GetExistingProductLookups(
+            List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB);
-        
+
+        IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(
+            List<SupplierProductBarcode> supplierProductBarcodesA,
+            List<SupplierProductBarcode> supplierProductBarcodesB,
+            List<string> productLookup);
     }
     
     public class BarcodeMapper : IBarcodeMapper
     {
-     
-        public IEnumerable<SupplierProductBarcode> GetMatchingProducts(List<SupplierProductBarcode> supplierProductBarcodesA, 
+        public List<string> GetExistingProductLookups(List<SupplierProductBarcode> supplierProductBarcodesA, 
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {
-            var productList = new List<SupplierProductBarcode>();
-            
-            var resultSet = supplierProductBarcodesA
+            var matchingBarcodes = supplierProductBarcodesA
                 .Select(_ => _.Barcode)
                 .Intersect(supplierProductBarcodesB.Select(_ => _.Barcode)).ToList();
 
-            foreach (var barcode in resultSet)
+            return matchingBarcodes;
+        } 
+        
+        public IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
+            List<string> productLookup)
+        {
+            var newProductList = new List<SupplierProductBarcode>();
+            var combinedProducts = supplierProductBarcodesA.Concat(supplierProductBarcodesB).ToList();
+            
+            foreach (var product in combinedProducts)
             {
-                var product = supplierProductBarcodesA.SingleOrDefault(_ => _.Barcode == barcode);
-                productList.Add(product);
+                if (!productLookup.Contains(product.Barcode))
+                {
+                    newProductList.Add(product);
+                }
             }
-            return productList;
+            return newProductList;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
 using CatalogMigrations.Services.Helpers.Csv;
@@ -13,42 +13,18 @@ namespace CatalogMigrations.Services.Tests.Mapper
     public class BarcodeMapperTests
     {
         private BarcodeMapper _barcodeMapper;
-
+        private List<SupplierProductBarcode> _barcodeA;
+        private List<SupplierProductBarcode> _barcodeB;
+        private List<string> _productLookup;
         public BarcodeMapperTests()
         {
             _barcodeMapper = new BarcodeMapper();
-        }
-        
-        [Fact]
-        public void GetMatchingBarcode_ShouldReturn_MatchingBarcodes()
-        {
-            var barcodeA = new List<SupplierProductBarcode>()
+
+            _barcodeA = new List<SupplierProductBarcode>()
             {
                 new()
                 {
                     Sku = "1111-1111-1111",
-                    Barcode = "z2783613083817",
-                    SupplierId = 1
-                },
-                new()
-                {
-                    Sku = "2222-1111-1111",
-                    Barcode = "z2783613083800",
-                    SupplierId = 1
-                }
-            };
-            
-            var barcodeB = new List<SupplierProductBarcode>()
-            {
-                new()
-                {
-                    Sku = "2222-1111-1111",
-                    Barcode = "z2783613083818",
-                    SupplierId = 2
-                },
-                new()
-                {
-                    Sku = "2222-1111-1111",
                     Barcode = "z2783613083800",
                     SupplierId = 1
                 },
@@ -56,18 +32,67 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 {
                     Sku = "2222-1111-1111",
                     Barcode = "z2783613083801",
-                    SupplierId = 1
+                    SupplierId = 2
+                }
+            };
+
+            _barcodeB = new List<SupplierProductBarcode>()
+            {
+                new()
+                {
+                    Sku = "2222-1111-1112",
+                    Barcode = "z2783613083800",
+                    SupplierId = 2
                 },
                 new()
                 {
                     Sku = "2222-1111-1111",
-                    Barcode = "z2783613093800",
-                    SupplierId = 1
+                    Barcode = "z2783613093803",
+                    SupplierId = 3
+                },
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613093804",
+                    SupplierId = 3
                 }
             };
 
-            var matchedProducts = _barcodeMapper.GetMatchingProducts(barcodeA, barcodeB);
-            matchedProducts.Single().Barcode.Should().Be("z2783613083800");
+            _productLookup = new List<string>()
+            {
+                "z2783613083800",
+            };
+        }
+        
+        [Fact]
+        public void GetMatchingBarcode_ShouldReturn_MatchingBarcodes()
+        {
+            var matchedProducts = _barcodeMapper.GetExistingProductLookups(_barcodeA, _barcodeB);
+            matchedProducts.Single().Should().Be("z2783613083800");
+        }
+
+        [Fact]
+        public void GetMatchingSku_ShouldReturn_UniqueProducts()
+        {
+            var result = new List<SupplierProductBarcode>()
+            {
+                new()
+                {
+                    Sku = "2222-1111-1112",
+                    Barcode = "z2783613083800",
+                    SupplierId = 2
+                },
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613093803",
+                    SupplierId = 3
+                },
+            };
+            
+            var uniqueProducts = _barcodeMapper.GetNewProductsFromSku(_barcodeA, _barcodeB, _productLookup);
+            uniqueProducts.Should().Equals(result);
+
         }
     }
 }
