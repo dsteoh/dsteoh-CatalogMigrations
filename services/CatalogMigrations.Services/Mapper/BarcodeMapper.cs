@@ -18,7 +18,6 @@ namespace CatalogMigrations.Services.Mapper
     
     public class BarcodeMapper : IBarcodeMapper
     {
-     
         public List<string> GetExistingProductLookups(List<SupplierProductBarcode> supplierProductBarcodesA, 
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {

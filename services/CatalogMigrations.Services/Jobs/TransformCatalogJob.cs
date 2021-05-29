@@ -25,6 +25,7 @@ namespace CatalogMigrations.Services.Jobs
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {
             var matchingBarcodeLookups = _barcodeMapper.GetExistingProductLookups(supplierProductBarcodesA, supplierProductBarcodesB);
+            
         }
     }
 }
