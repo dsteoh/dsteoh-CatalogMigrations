@@ -6,9 +6,14 @@ namespace CatalogMigrations.Services.Mapper
 {
     public interface IBarcodeMapper
     {
-        IEnumerable<SupplierProductBarcode> GetMatchingProducts(List<SupplierProductBarcode> supplierProductBarcodesA,
+        IEnumerable<SupplierProductBarcode> GetMatchingProducts(
+            List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB);
-        
+        IEnumerable<SupplierProductBarcode> GetUniqueProductFromSku(
+            List<SupplierProductBarcode> supplierProductBarcodesA,
+            List<SupplierProductBarcode> supplierProductBarcodesB, 
+            IEnumerable<SupplierProductBarcode> productLookup);
+
     }
     
     public class BarcodeMapper : IBarcodeMapper
@@ -29,6 +34,12 @@ namespace CatalogMigrations.Services.Mapper
                 productList.Add(product);
             }
             return productList;
+        }
+
+        public IEnumerable<SupplierProductBarcode> GetUniqueProductFromSku(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
+            IEnumerable<SupplierProductBarcode> productLookup)
+        {
+            
         }
     }
 }

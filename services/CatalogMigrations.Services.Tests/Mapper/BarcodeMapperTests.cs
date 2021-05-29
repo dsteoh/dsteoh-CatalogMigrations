@@ -13,16 +13,14 @@ namespace CatalogMigrations.Services.Tests.Mapper
     public class BarcodeMapperTests
     {
         private BarcodeMapper _barcodeMapper;
-
+        private List<SupplierProductBarcode> _barcodeA;
+        private List<SupplierProductBarcode> _barcodeB;
+        private List<SupplierProductBarcode> _productLookup;
         public BarcodeMapperTests()
         {
             _barcodeMapper = new BarcodeMapper();
-        }
-        
-        [Fact]
-        public void GetMatchingBarcode_ShouldReturn_MatchingBarcodes()
-        {
-            var barcodeA = new List<SupplierProductBarcode>()
+            
+            _barcodeA = new List<SupplierProductBarcode>()
             {
                 new()
                 {
@@ -38,14 +36,8 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 }
             };
             
-            var barcodeB = new List<SupplierProductBarcode>()
+            _barcodeB = new List<SupplierProductBarcode>()
             {
-                new()
-                {
-                    Sku = "2222-1111-1111",
-                    Barcode = "z2783613083818",
-                    SupplierId = 2
-                },
                 new()
                 {
                     Sku = "2222-1111-1111",
@@ -55,19 +47,24 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 new()
                 {
                     Sku = "2222-1111-1111",
-                    Barcode = "z2783613083801",
-                    SupplierId = 1
-                },
-                new()
-                {
-                    Sku = "2222-1111-1111",
-                    Barcode = "z2783613093800",
+                    Barcode = "z2783613093801",
                     SupplierId = 1
                 }
             };
-
-            var matchedProducts = _barcodeMapper.GetMatchingProducts(barcodeA, barcodeB);
+        }
+        
+        [Fact]
+        public void GetMatchingBarcode_ShouldReturn_MatchingBarcodes()
+        {
+            var matchedProducts = _barcodeMapper.GetMatchingProducts(_barcodeA, _barcodeB);
             matchedProducts.Single().Barcode.Should().Be("z2783613083800");
+        }
+
+        [Fact]
+        public void GetMatchingSku_ShouldReturn_UniqueProducts()
+        {
+            var uniqueProducts = _barcodeMapper.GetUniqueProductFromSku(_productLookup,_barcodeA, _barcodeB);
+            uniqueProducts.Single().Barcode.Should().Be("z2783613083800");
         }
     }
 }
