@@ -10,7 +10,7 @@ namespace CatalogMigrations.Services.Mapper
             List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB);
 
-        IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(
+        IEnumerable<SupplierProductBarcode> GetNewProducts(
             List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB,
             List<string> productLookup);
@@ -28,7 +28,7 @@ namespace CatalogMigrations.Services.Mapper
             return matchingBarcodes;
         } 
         
-        public IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
+        public IEnumerable<SupplierProductBarcode> GetNewProducts(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
             List<string> productLookup)
         {
             var newProductList = new List<SupplierProductBarcode>();

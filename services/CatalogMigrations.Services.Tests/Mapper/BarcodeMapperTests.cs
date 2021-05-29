@@ -1,11 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
-using CatalogMigrations.Services.Helpers.Csv;
-using CatalogMigrations.Services.Jobs;
 using CatalogMigrations.Services.Mapper;
 using FluentAssertions;
-using Moq;
 using Xunit;
 
 namespace CatalogMigrations.Services.Tests.Mapper
@@ -65,14 +62,14 @@ namespace CatalogMigrations.Services.Tests.Mapper
         }
         
         [Fact]
-        public void GetMatchingBarcode_ShouldReturn_MatchingBarcodes()
+        public void GetExistingProductLookups_ShouldReturn_Lookups()
         {
             var matchedProducts = _barcodeMapper.GetExistingProductLookups(_barcodeA, _barcodeB);
             matchedProducts.Single().Should().Be("z2783613083800");
         }
 
         [Fact]
-        public void GetMatchingSku_ShouldReturn_UniqueProducts()
+        public void GetNewProducts_ShouldReturn_UniqueProducts()
         {
             var result = new List<SupplierProductBarcode>()
             {
@@ -90,7 +87,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 },
             };
             
-            var uniqueProducts = _barcodeMapper.GetNewProductsFromSku(_barcodeA, _barcodeB, _productLookup);
+            var uniqueProducts = _barcodeMapper.GetNewProducts(_barcodeA, _barcodeB, _productLookup);
             uniqueProducts.Should().Equals(result);
 
         }
