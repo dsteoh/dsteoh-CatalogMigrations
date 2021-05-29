@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
 using CatalogMigrations.Services.Helpers.Csv;
-using Xunit;
 using FluentAssertions;
+using Xunit;
 
-namespace CatalogMigrations.Services.Tests.Helpers
+namespace CatalogMigrations.Services.Tests.Helpers.Csv
 {
     public class CsvHelperTests
     {
@@ -46,19 +46,21 @@ namespace CatalogMigrations.Services.Tests.Helpers
         }
 
         [Fact]
-        public void ShouldConvertListToCsv()
+        public void ShouldWriteToFile()
         {
-            var catalogList = new List<Catalog>
+            var superCatalogList = new List<SuperCatalog>
             {
                 new()
                 {
                     Sku = "1111-111-111",
-                    Description = "Test Item"
+                    Description = "Test Item",
+                    Source = "A"
                 }
             };
-            
-            // var x = _csvHelper.ConvertListToCsv(catalogList, "path");
-            // File.Exists("path").Should().BeTrue();
+            var path = Path.Combine(Path.GetDirectoryName(_projectDirectory),"TestResults");
+            _csvHelper.WriteSuperCatalogToFile(path, "SuperCatalog.csv", superCatalogList);
+            var writeFilePath = Path.Combine(path, "SuperCatalog.csv");
+            File.Exists(writeFilePath).Should().BeTrue();
         }
     }
 }
