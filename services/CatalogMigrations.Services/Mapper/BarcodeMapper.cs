@@ -18,11 +18,11 @@ namespace CatalogMigrations.Services.Mapper
         IEnumerable<SupplierProductBarcode> RemoveDuplicatedProducts(
             IEnumerable<SupplierProductBarcode> supplierProductBarcodes);
     }
-    
+
     public class BarcodeMapper : IBarcodeMapper
     {
         public IEnumerable<string> GetExistingProductLookups(
-            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA, 
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
             IEnumerable<SupplierProductBarcode>supplierProductBarcodesB)
         {
             var matchingBarcodes = supplierProductBarcodesA
@@ -30,15 +30,15 @@ namespace CatalogMigrations.Services.Mapper
                 .Intersect(supplierProductBarcodesB.Select(_ => _.Barcode));
 
             return matchingBarcodes;
-        } 
-        
+        }
+
         public IEnumerable<SupplierProductBarcode> GetNewProducts(
-            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA, 
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
             IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
             IEnumerable<string> matchingBarcodes)
         {
             var newProductList = new List<SupplierProductBarcode>();
-            
+
             foreach (var product in supplierProductBarcodesB)
             {
                 if (!matchingBarcodes.Contains(product.Barcode))

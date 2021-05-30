@@ -35,7 +35,7 @@ namespace CatalogMigrations.Services.Tests.Jobs
                     SupplierId = 4
                 }
             };
-            
+
             var newProductCompanyB = new List<SupplierProductBarcode>()
             {
                 new()
@@ -63,7 +63,7 @@ namespace CatalogMigrations.Services.Tests.Jobs
                     Source = "A"
                 }
             };
-            
+
             var superCatalogB = new List<SuperCatalog>()
             {
                 new()
@@ -81,27 +81,27 @@ namespace CatalogMigrations.Services.Tests.Jobs
             };
 
             mockBarcodeMapper.Setup(_ => _.GetExistingProductLookups(
-                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(),
                 It.IsAny<IEnumerable<SupplierProductBarcode>>())).Returns(lookUps);
-            
+
             mockBarcodeMapper.Setup(_ => _.GetNewProducts(
-                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
-                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(),
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(),
                 It.IsAny<IEnumerable<string>>())).Returns(newProductCompanyB);
-            
+
             mockBarcodeMapper.Setup(_ => _.RemoveDuplicatedProducts(
                 It.IsAny<IEnumerable<SupplierProductBarcode>>())).Returns(noDupCompanyA);
 
             mockSuperCatalogMapper.Setup(_ => _.GetSuperCatalogFormat(
-                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
-                It.IsAny<IEnumerable<Catalog>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(),
+                It.IsAny<IEnumerable<Catalog>>(),
                 It.Is<string>(s => s == "A"))).Returns(superCatalogA);
-            
+
             mockSuperCatalogMapper.Setup(_ => _.GetSuperCatalogFormat(
-                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
-                It.IsAny<IEnumerable<Catalog>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(),
+                It.IsAny<IEnumerable<Catalog>>(),
                 It.Is<string>(s => s == "B"))).Returns(superCatalogB);
-            
+
         }
 
         [Fact]
@@ -128,13 +128,13 @@ namespace CatalogMigrations.Services.Tests.Jobs
                     Source = "B"
                 }
             };
-            
+
             var superCatalog = _transformCatalogJob.TransformCatalog(
                 new List<SupplierProductBarcode>(),
-                new List<Catalog>(), 
+                new List<Catalog>(),
                 new List<SupplierProductBarcode>(),
                 new List<Catalog>()).ToList();
-            
+
             superCatalog.Should().BeEquivalentTo(result);
         }
     }
