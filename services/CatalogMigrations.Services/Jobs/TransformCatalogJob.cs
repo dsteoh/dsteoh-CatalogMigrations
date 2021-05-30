@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using CatalogMigrations.DataModels.Models;
-using CatalogMigrations.Services.Helpers.Csv;
-using CatalogMigrations.Services.Helpers.Csv.Mappers;
 using CatalogMigrations.Services.Mapper;
 
 namespace CatalogMigrations.Services.Jobs
@@ -34,8 +30,6 @@ namespace CatalogMigrations.Services.Jobs
             IEnumerable<SupplierProductBarcode>supplierProductBarcodesB, 
             IEnumerable<Catalog> catalogB)
         {
-            var productList = new List<SupplierProductBarcode>();
-            
             // Get lookup of matching product
             var supplierProductBarcodes = supplierProductBarcodesA.ToList();
             var productBarcodesB = supplierProductBarcodesB.ToList(); 
