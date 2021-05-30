@@ -25,7 +25,6 @@ namespace CatalogMigrations
             var sampleDataPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestData");
             var resultPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestResults");
 
-
             while (true)
             {
                 Console.WriteLine($@"Default files path is set to {sampleDataPath}" +
@@ -67,15 +66,11 @@ namespace CatalogMigrations
                     else if (input != null && !input.Equals("exit"))
                     {
                         var barcodesA =
-                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath +
-                                                                           "\\Barcodes\\barcodesA.csv");
+                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath + "\\Barcodes\\barcodesA.csv");
                         var barcodesB =
-                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath +
-                                                                           "\\Barcodes\\barcodesB.csv");
-                        var catalogA =
-                            _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogA.csv");
-                        var catalogB =
-                            _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogB.csv");
+                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath + "\\Barcodes\\barcodesB.csv");
+                        var catalogA = _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogA.csv");
+                        var catalogB = _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogB.csv");
 
                         var superCatalogs = _transformCatalogJob
                             .TransformCatalog(barcodesA, catalogA, barcodesB, catalogB).ToList();
