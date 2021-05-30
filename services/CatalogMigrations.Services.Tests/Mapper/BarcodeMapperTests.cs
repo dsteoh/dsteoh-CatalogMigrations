@@ -21,7 +21,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
             {
                 new()
                 {
-                    Sku = "1111-1111-1111",
+                    Sku = "2222-1111-1111",
                     Barcode = "z2783613083800",
                     SupplierId = 1
                 },
@@ -76,7 +76,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
         [Fact]
         public void GetExistingProductLookups_ShouldReturn_Lookups()
         {
-            var matchedProducts = _barcodeMapper.GetExistingProductLookups(_barcodeA, _barcodeB);
+            var matchedProducts = _barcodeMapper.GetExistingProductLookups(_barcodeA, _barcodeB).ToList();
             matchedProducts.Single().Should().Be("z2783613083800");
         }
 
@@ -107,7 +107,30 @@ namespace CatalogMigrations.Services.Tests.Mapper
         [Fact]
         public void RemoveDuplicates_ShouldReturn_ProductsWithNoDuplicates()
         {
+            var result = new List<SupplierProductBarcode>()
+            {
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613083800",
+                    SupplierId = 1
+                },
+                new()
+                {
+                    Sku = "2222-1111-3333",
+                    Barcode = "z2783613089999",
+                    SupplierId = 2
+                },
+                new()
+                {
+                    Sku = "2222-2222-3333",
+                    Barcode = "z278361308888",
+                    SupplierId = 2
+                }
+            };
             
+            var noDupProducts = _barcodeMapper.RemoveDuplicates(_barcodeA);
+            noDupProducts.Should().BeEquivalentTo(result);
         }
     }
 }

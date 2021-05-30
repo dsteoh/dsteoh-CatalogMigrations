@@ -150,7 +150,6 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 new List<Catalog>());
             
             superCatalog.Should().Equal(result);
-
         }
     }
 }

@@ -6,7 +6,7 @@ namespace CatalogMigrations.Services.Mapper
 {
     public interface IBarcodeMapper
     {
-        List<string> GetExistingProductLookups(
+        IEnumerable<string> GetExistingProductLookups(
             List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB);
 
@@ -18,12 +18,12 @@ namespace CatalogMigrations.Services.Mapper
     
     public class BarcodeMapper : IBarcodeMapper
     {
-        public List<string> GetExistingProductLookups(List<SupplierProductBarcode> supplierProductBarcodesA, 
+        public IEnumerable<string> GetExistingProductLookups(List<SupplierProductBarcode> supplierProductBarcodesA, 
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {
             var matchingBarcodes = supplierProductBarcodesA
                 .Select(_ => _.Barcode)
-                .Intersect(supplierProductBarcodesB.Select(_ => _.Barcode)).ToList();
+                .Intersect(supplierProductBarcodesB.Select(_ => _.Barcode));
 
             return matchingBarcodes;
         } 
