@@ -15,7 +15,6 @@ namespace CatalogMigrations
         {
             _csvParser = csvParser;
             _transformCatalogJob = catalogJob;
-
         }
 
         public void Run()
