@@ -12,9 +12,9 @@ namespace CatalogMigrations.Services.Tests.Mapper
 {
     public class SuperCatalogMapperTests
     {
-        private CsvParser _csvHelper;
-        private SuperCatalogMapper _superCatalogMapper;
-        private string _projectDirectory;
+        private readonly CsvParser _csvHelper;
+        private readonly SuperCatalogMapper _superCatalogMapper;
+        private readonly string _projectDirectory;
 
         public SuperCatalogMapperTests()
         {

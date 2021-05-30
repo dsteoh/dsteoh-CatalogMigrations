@@ -16,8 +16,8 @@ namespace CatalogMigrations.Services.Jobs
 
     public class TransformCatalogJob : ITransformCatalogJob
     {
-        private IBarcodeMapper _barcodeMapper;
-        private ISuperCatalogMapper _superCatalogMapper;
+        private readonly IBarcodeMapper _barcodeMapper;
+        private readonly ISuperCatalogMapper _superCatalogMapper;
 
         public TransformCatalogJob(IBarcodeMapper barcodeMapper, ISuperCatalogMapper superCatalogMapper)
         {
@@ -35,6 +35,7 @@ namespace CatalogMigrations.Services.Jobs
             var supplierProductBarcodes = supplierProductBarcodesA.ToList();
             var productBarcodesB = supplierProductBarcodesB.ToList();
 
+            // Find same products in companyB
             var matchingBarcodeLookups = _barcodeMapper
                 .GetExistingProductLookups(supplierProductBarcodes, productBarcodesB);
 
@@ -42,9 +43,11 @@ namespace CatalogMigrations.Services.Jobs
             var newCompanyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodes,
                 productBarcodesB, matchingBarcodeLookups).ToList();
 
+            // Clean dups
             var distinctA = _barcodeMapper.RemoveDuplicatedProducts(supplierProductBarcodes);
             var distinctB = _barcodeMapper.RemoveDuplicatedProducts(newCompanyBProducts);
 
+            // Build super catalog format
             var superCatalogA = _superCatalogMapper.GetSuperCatalogFormat(distinctA, catalogA, "A");
             var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(distinctB, catalogB, "B");
 

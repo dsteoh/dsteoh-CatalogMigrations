@@ -9,10 +9,10 @@ namespace CatalogMigrations.Services.Tests.Mapper
 {
     public class BarcodeMapperTests
     {
-        private BarcodeMapper _barcodeMapper;
-        private List<SupplierProductBarcode> _barcodeA;
-        private List<SupplierProductBarcode> _barcodeB;
-        private List<string> _productLookup;
+        private readonly BarcodeMapper _barcodeMapper;
+        private readonly List<SupplierProductBarcode> _barcodeA;
+        private readonly List<SupplierProductBarcode> _barcodeB;
+        private readonly List<string> _productLookup;
         public BarcodeMapperTests()
         {
             _barcodeMapper = new BarcodeMapper();

@@ -8,8 +8,8 @@ namespace CatalogMigrations
 {
     public class CatalogMigrationApplication
     {
-        private ICsvParser _csvParser;
-        private ITransformCatalogJob _transformCatalogJob;
+        private readonly ICsvParser _csvParser;
+        private readonly ITransformCatalogJob _transformCatalogJob;
 
         public CatalogMigrationApplication(ICsvParser csvParser, ITransformCatalogJob catalogJob)
         {

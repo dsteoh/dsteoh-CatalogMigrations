@@ -11,8 +11,8 @@ namespace CatalogMigrations.Services.Tests.Helpers.Csv
 {
     public class CsvHelperTests
     {
-        private CsvParser _csvHelper;
-        private string _projectDirectory;
+        private readonly CsvParser _csvHelper;
+        private readonly string _projectDirectory;
 
         public CsvHelperTests()
         {
