@@ -7,15 +7,15 @@ namespace CatalogMigrations.Services.Mapper
     public interface ISuperCatalogMapper
     {
         IEnumerable<SuperCatalog> GetSuperCatalogFormat(
-            IEnumerable<SupplierProductBarcode> supplierProductBarcode, 
+            IEnumerable<SupplierProductBarcode> supplierProductBarcode,
             IEnumerable<Catalog> catalog,
             string company);
     }
-    
+
     public class SuperCatalogMapper: ISuperCatalogMapper
     {
         public IEnumerable<SuperCatalog> GetSuperCatalogFormat(
-            IEnumerable<SupplierProductBarcode> supplierProductBarcode, 
+            IEnumerable<SupplierProductBarcode> supplierProductBarcode,
             IEnumerable<Catalog> catalog,
             string company)
         {

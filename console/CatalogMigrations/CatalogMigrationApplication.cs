@@ -10,13 +10,7 @@ namespace CatalogMigrations
     {
         private ICsvParser _csvParser;
         private ITransformCatalogJob _transformCatalogJob;
-<<<<<<< Updated upstream
-        private string workingDirectory = Environment.CurrentDirectory;
 
-        
-=======
-
->>>>>>> Stashed changes
         public CatalogMigrationApplication(ICsvParser csvParser, ITransformCatalogJob catalogJob)
         {
             _csvParser = csvParser;
