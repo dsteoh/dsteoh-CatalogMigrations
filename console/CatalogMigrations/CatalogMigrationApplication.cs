@@ -25,16 +25,21 @@ namespace CatalogMigrations
             var sampleDataPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestData");
             var resultPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestResults");
 
+            Console.WriteLine(
+                $"\n=====================================" +
+                $"\n[ Migration Catalog Project started1 ]" +
+                $"\n=====================================\n" +
+                $"\n****Option 1****: Enter full path of barcodeA.csv to start" +
+                $"\n****Option 2****: If you want to set run the test files under {sampleDataPath} press enter" +
+                $"\n****Option 3****: Place custom Barcodes\\Catalogs\\Suppliers.csv files under the path {sampleDataPath}" +
+                $"\n++++Note++++" +
+                $"\nFiles must follow the naming schema barcodesA.csv, catalogA.csv, supplierA.csv for option 3\n"
+                );
+
             while (true)
             {
-                Console.WriteLine($@"Default files path is set to {sampleDataPath}" +
-                                  $"\n****Option 1****: If you want to set run the test files under {sampleDataPath} press enter" +
-                                  $"\n****Option 2****: Enter full path of barcodeA.csv to start" +
-                                  $"\n****Option 3****: Place custom Barcodes/Catalogs/Suppliers.csv files under the path {sampleDataPath}" +
-                                  $"\n****Note**** Files must follow the naming schema barcodesA.csv, catalogA.csv, supplierA.csv");
-
+                Console.WriteLine("Waiting for input... Please enter barcodeA.csv for option 1");
                 var input = Console.ReadLine();
-
                 try
                 {
                     if (!string.IsNullOrWhiteSpace(input))
@@ -56,12 +61,15 @@ namespace CatalogMigrations
                         Console.WriteLine("Enter your output path");
                         var outputPath = input = Console.ReadLine();
 
+                        Console.WriteLine("Enter csv file name with extension (.csv)");
+                        var fileName = input = Console.ReadLine();
+
                         var superCatalogs = _transformCatalogJob
                             .TransformCatalog(barcodesA, catalogA, barcodesB, catalogB).ToList();
 
-                        _csvParser.WriteSuperCatalogToFile(outputPath, "SuperCatalog.csv", superCatalogs);
+                        _csvParser.WriteSuperCatalogToFile(outputPath, fileName ?? "SuperCatalog.csv", superCatalogs);
 
-                        Console.WriteLine("File" + "SuperCatalog.csv " + "created at " + outputPath);
+                        Console.WriteLine("Migrated files to " + fileName + " created at " + outputPath + "\n");
                     }
                     else if (input != null && !input.Equals("exit"))
                     {
@@ -76,9 +84,7 @@ namespace CatalogMigrations
                             .TransformCatalog(barcodesA, catalogA, barcodesB, catalogB).ToList();
                         _csvParser.WriteSuperCatalogToFile(resultPath, "SuperCatalog.csv", superCatalogs);
 
-                        Console.WriteLine("File" + "SuperCatalog.csv " + "created at " + resultPath);
-                        Console.WriteLine(
-                            "Enter path for barcodeA.csv again or type exit to stop application.");
+                        Console.WriteLine("Migrated file SuperCatalog.csv created at " + resultPath + "\n");
                     }
                 }
                 catch (Exception ex)
