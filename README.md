@@ -19,11 +19,11 @@ Run `dotnet run`
 The problem suggested that company A inherited company B which means we only need to find possible new products in company B whilst keeping the products in company A.
 
 We can also use the barcode field as a source of truth as stated by the problem statement
-```
-If any supplier barcode matches for one product of company A with Company B then we can consider that those products as the same.
-```
 
- Markup : 1. First we will create a new table of barcodes, this table will contain barcodes that exist in both A and B, where we will call it ```barcodeLookup```
-          2. Using ```barcodeLookup``` we can loop over barcodeB.csv to find which item is new/ not exist barcodeA.csv. We will call this ```newItemsList``` for now 
-          3. We then have to remove the duplicated products from both list (```barcodeA.csv``` and ```newItemsList```) where the same product can have differnt barcodes(row).
-          4. Finally we then construct the merged catalog using ```barcodeA.csv``` and ```newItemsList```
+* If any supplier barcode matches for one product of company A with Company B then we can consider that those products as the same.
+
+
+1. First we will create a new table of barcodes, this table will contain barcodes that exist in both A and B, where we will call it ```barcodeLookup```
+2. Using ```barcodeLookup``` we can loop over barcodeB.csv to find which item is new/ not exist barcodeA.csv. We will call this ```newItemsList``` for now 
+3. We then have to remove the duplicated products from both list (```barcodeA.csv``` and ```newItemsList```) where the same product can have differnt barcodes(row).
+4. Finally we then construct the merged catalog using ```barcodeA.csv``` and ```newItemsList```
