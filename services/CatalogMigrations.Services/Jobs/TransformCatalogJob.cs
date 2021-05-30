@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
@@ -46,7 +47,7 @@ namespace CatalogMigrations.Services.Jobs
             var superCatalogA = _superCatalogMapper.GetSuperCatalogFormat(productList, catalogA, "A");
             var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(newCompanyBProducts, catalogB, "B");
 
-            var 
+            throw new NotImplementedException();
         }
     }
 }
