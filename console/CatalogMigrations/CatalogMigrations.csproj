@@ -5,4 +5,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\services\CatalogMigrations.Services\CatalogMigrations.Services.csproj" />
+    <ProjectReference Include="..\..\shared\CatalogMigrations.DataModels\CatalogMigrations.DataModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+  </ItemGroup>
+
 </Project>

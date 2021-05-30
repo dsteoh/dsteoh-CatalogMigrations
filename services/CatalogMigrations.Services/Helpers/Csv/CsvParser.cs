@@ -9,6 +9,14 @@ using CatalogMigrations.Services.Helpers.Csv.Mappers;
 
 namespace CatalogMigrations.Services.Helpers.Csv
 {
+    public interface ICsvParser
+    {
+        List<Catalog> ParseToCatalogsToList(string path);
+        List<Supplier> ParseToSupplierToList(string path);
+        List<SupplierProductBarcode> ParseToSupplierProductBarcodeToList(string path);
+        void WriteSuperCatalogToFile(string path, string fileName, List<SuperCatalog> superCatalogs);
+    }
+    
     public class CsvParser : ICsvParser
     {
         public List<Catalog> ParseToCatalogsToList(string path)
