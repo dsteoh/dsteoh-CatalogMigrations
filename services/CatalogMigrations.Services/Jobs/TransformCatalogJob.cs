@@ -40,10 +40,10 @@ namespace CatalogMigrations.Services.Jobs
                 .GetExistingProductLookups(supplierProductBarcodes, productBarcodesB);
 
             // New products in company B
-            var newCompanyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodes,
+            var newCompanyBProducts = _barcodeMapper.GetNewProducts(
                 productBarcodesB, matchingBarcodeLookups).ToList();
 
-            // Clean dups
+            // Clean dupes
             var distinctA = _barcodeMapper.RemoveDuplicatedProducts(supplierProductBarcodes);
             var distinctB = _barcodeMapper.RemoveDuplicatedProducts(newCompanyBProducts);
 

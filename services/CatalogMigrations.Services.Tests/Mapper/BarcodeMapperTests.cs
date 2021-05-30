@@ -99,7 +99,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 },
             };
 
-            var newProducts = _barcodeMapper.GetNewProducts(_barcodeA, _barcodeB, _productLookup);
+            var newProducts = _barcodeMapper.GetNewProducts(_barcodeB, _productLookup);
             newProducts.Should().BeEquivalentTo(result);
 
         }

@@ -86,7 +86,6 @@ namespace CatalogMigrations.Services.Tests.Jobs
 
             mockBarcodeMapper.Setup(_ => _.GetNewProducts(
                 It.IsAny<IEnumerable<SupplierProductBarcode>>(),
-                It.IsAny<IEnumerable<SupplierProductBarcode>>(),
                 It.IsAny<IEnumerable<string>>())).Returns(newProductCompanyB);
 
             mockBarcodeMapper.Setup(_ => _.RemoveDuplicatedProducts(

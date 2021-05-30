@@ -12,30 +12,70 @@ namespace CatalogMigrations.Services.Tests.Mapper
 {
     public class SuperCatalogMapperTests
     {
-        private readonly CsvParser _csvHelper;
+        private readonly List<SupplierProductBarcode> _barcode;
+        private readonly List<Catalog> _catalog;
         private readonly SuperCatalogMapper _superCatalogMapper;
-        private readonly string _projectDirectory;
 
         public SuperCatalogMapperTests()
         {
             _superCatalogMapper = new SuperCatalogMapper();
-            _csvHelper = new CsvParser();
 
-            var workingDirectory = Environment.CurrentDirectory;
-            _projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
+            _barcode = new List<SupplierProductBarcode>()
+            {
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613083800",
+                    SupplierId = 1
+                },
+                new()
+                {
+                    Sku = "2222-1111-1112",
+                    Barcode = "z2783613083801",
+                    SupplierId = 2
+                }
+            };
+
+            _catalog = new List<Catalog>()
+            {
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Description = "Frostmourne"
+                },
+                new()
+                {
+                    Sku = "2222-1111-1112",
+                    Description = "Blue Journeyman Backpack"
+                }
+            };
         }
 
         [Fact]
         public void GetSuperCatalogFormat()
         {
-            var catalogPath = Path.Combine(Path.GetDirectoryName(_projectDirectory),"TestData", "Catalogs","catalogA.csv");
-            var supplierProductBarcodePath = Path.Combine(Path.GetDirectoryName(_projectDirectory),"TestData", "Barcodes","barcodesA.csv");
+            var result = new List<SuperCatalog>()
+            {
+                new()
+                {
+                    Sku = "2222-1111-1111",
+                    Description = "Frostmourne",
+                    Source = "A"
+                },
+                new()
+                {
+                    Sku = "2222-1111-1112",
+                    Description = "Blue Journeyman Backpack",
+                    Source = "A"
+                }
+            };
 
-            var catalogList = _csvHelper.ParseToCatalogsToList(catalogPath);
-            var supplierProductBarcodeList = _csvHelper.ParseToSupplierProductBarcodeToList(supplierProductBarcodePath);
+            var superCatalog = _superCatalogMapper.GetSuperCatalogFormat(
+                _barcode,
+                _catalog,
+                "A").ToList();
 
-            var matchedProducts = _superCatalogMapper.GetSuperCatalogFormat(supplierProductBarcodeList, catalogList, "A").ToList();
-            matchedProducts.Should().BeOfType<List<SuperCatalog>>();
+            superCatalog.Should().BeEquivalentTo(result);
         }
     }
 }

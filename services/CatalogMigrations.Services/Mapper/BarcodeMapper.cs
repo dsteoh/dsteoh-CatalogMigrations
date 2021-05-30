@@ -11,7 +11,6 @@ namespace CatalogMigrations.Services.Mapper
             IEnumerable<SupplierProductBarcode> supplierProductBarcodesB);
 
         IEnumerable<SupplierProductBarcode> GetNewProducts(
-            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
             IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
             IEnumerable<string> productLookup);
 
@@ -33,7 +32,6 @@ namespace CatalogMigrations.Services.Mapper
         }
 
         public IEnumerable<SupplierProductBarcode> GetNewProducts(
-            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
             IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
             IEnumerable<string> matchingBarcodes)
         {
