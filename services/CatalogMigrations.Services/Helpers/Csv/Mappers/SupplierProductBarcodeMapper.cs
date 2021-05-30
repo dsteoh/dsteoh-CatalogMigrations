@@ -7,9 +7,9 @@ namespace CatalogMigrations.Services.Helpers.Csv.Mappers
     {
         public SupplierProductBarcodeMapper()
         {
-            Map(_ => _.SupplierId).Name("SupplierID");
-            Map(_ => _.Sku).Name("SKU");
-            Map(_ => _.Barcode).Name("Barcode");
+            Map(_ => _.SupplierId).Name("SupplierID").Index(0);
+            Map(_ => _.Sku).Name("SKU").Index(1);
+            Map(_ => _.Barcode).Name("Barcode").Index(2);
         }
     }
 }
