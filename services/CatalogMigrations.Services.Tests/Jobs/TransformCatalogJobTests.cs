@@ -149,7 +149,7 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 new List<SupplierProductBarcode>(),
                 new List<Catalog>());
             
-            superCatalog.Should().Equals(result);
+            superCatalog.Should().Equal(result);
 
         }
     }

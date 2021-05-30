@@ -33,9 +33,9 @@ namespace CatalogMigrations.Services.Mapper
         {
             var newProductList = new List<SupplierProductBarcode>();
             
-            var combinedProducts = supplierProductBarcodesA.ToList();
+            var productsList = supplierProductBarcodesB.ToList();
             
-            foreach (var product in combinedProducts)
+            foreach (var product in productsList)
             {
                 if (!matchingBarcodes.Contains(product.Barcode))
                 {
