@@ -25,5 +25,5 @@ We can also use the barcode field as a source of truth as stated by the problem 
 
 1. First a table called ```barcodeLookup``` will be created, this table will contain barcodes that exist in both A and B.
 2. Using ```barcodeLookup``` we can loop over barcodeB.csv to find which item is new/ not exist barcodeA.csv. Named ```newItemsList```. 
-3. We then have to remove the duplicated products from both list (```barcodeA.csv``` and ```newItemsList```) where the same product can have differnt barcodes(row).
+3. We then have to remove the duplicated products from both list (```barcodeA.csv``` and ```newItemsList```) where the same product can have differnt barcodes (rows).
 4. Finally we then construct the merged catalog using ```barcodeA.csv``` and ```newItemsList```.
