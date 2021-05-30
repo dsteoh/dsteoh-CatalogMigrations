@@ -11,11 +11,11 @@ namespace CatalogMigrations.Services.Jobs
 {
     public interface ITransformCatalogJob
     {
-        List<SuperCatalog> TransformCatalog(
-            List<SupplierProductBarcode> supplierProductBarcodesA,
-            List<Catalog> catalogA,
-            List<SupplierProductBarcode> supplierProductBarcodesB,
-            List<Catalog> catalogB);
+        IEnumerable<SuperCatalog> TransformCatalog(
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
+            IEnumerable<Catalog> catalogA,
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
+            IEnumerable<Catalog> catalogB);
     }
     public class TransformCatalogJob : ITransformCatalogJob
     {
@@ -28,26 +28,31 @@ namespace CatalogMigrations.Services.Jobs
             _superCatalogMapper = superCatalogMapper;
         }
         
-        public List<SuperCatalog> TransformCatalog(
-            List<SupplierProductBarcode> supplierProductBarcodesA, 
-            List<Catalog> catalogA,
-            List<SupplierProductBarcode>supplierProductBarcodesB, 
-            List<Catalog> catalogB)
+        public IEnumerable<SuperCatalog> TransformCatalog(
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA, 
+            IEnumerable<Catalog> catalogA,
+            IEnumerable<SupplierProductBarcode>supplierProductBarcodesB, 
+            IEnumerable<Catalog> catalogB)
         {
             var productList = new List<SupplierProductBarcode>();
             
             // Get lookup of matching product
+            var supplierProductBarcodes = supplierProductBarcodesA.ToList();
+            var productBarcodesB = supplierProductBarcodesB.ToList(); 
+            
             var matchingBarcodeLookups = _barcodeMapper
-                .GetExistingProductLookups(supplierProductBarcodesA, supplierProductBarcodesB).ToList();
+                .GetExistingProductLookups(supplierProductBarcodes, productBarcodesB);
             
             // New products in company B
-            var newCompanyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodesA,
-                supplierProductBarcodesB, matchingBarcodeLookups).ToList();
+            var newCompanyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodes,
+                productBarcodesB, matchingBarcodeLookups).ToList();
+
+            var distinctA = _barcodeMapper.RemoveDuplicatedProducts(supplierProductBarcodes);
             
-            var superCatalogA = _superCatalogMapper.GetSuperCatalogFormat(productList, catalogA, "A");
+            var superCatalogA = _superCatalogMapper.GetSuperCatalogFormat(distinctA, catalogA, "A");
             var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(newCompanyBProducts, catalogB, "B");
 
-            throw new NotImplementedException();
+            return superCatalogA.Concat(superCatalogB);
         }
     }
 }

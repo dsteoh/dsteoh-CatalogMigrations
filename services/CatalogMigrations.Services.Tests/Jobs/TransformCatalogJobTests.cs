@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
-using CatalogMigrations.Services.Helpers.Csv;
 using CatalogMigrations.Services.Jobs;
 using CatalogMigrations.Services.Mapper;
-using CsvHelper.TypeConversion;
 using FluentAssertions;
 using Moq;
 using Xunit;
-using Xunit.Sdk;
 
 namespace CatalogMigrations.Services.Tests.Jobs
 {
@@ -30,6 +25,17 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 "z2783613083800",
             };
 
+            var noDupCompanyA = new List<SupplierProductBarcode>()
+            {
+                new()
+                {
+                    //Same SKU different product
+                    Sku = "2222-1111-1111",
+                    Barcode = "z2783613083801",
+                    SupplierId = 4
+                }
+            };
+            
             var newProductCompanyB = new List<SupplierProductBarcode>()
             {
                 new()
@@ -53,21 +59,9 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 new()
                 {
                     Sku = "2222-1111-1111",
-                    Description = "Green Journeyman Backpack",
-                    Source = "A"
-                },
-                new()
-                {
-                    Sku = "2222-1111-1111",
-                    Description = "Journeyman Backpack",
-                    Source = "A"
-                },
-                new()
-                {
-                    Sku = "2222-1111-1112",
                     Description = "Frostmourne",
                     Source = "A"
-                },
+                }
             };
             
             var superCatalogB = new List<SuperCatalog>()
@@ -87,22 +81,25 @@ namespace CatalogMigrations.Services.Tests.Jobs
             };
 
             mockBarcodeMapper.Setup(_ => _.GetExistingProductLookups(
-                It.IsAny<List<SupplierProductBarcode>>(), 
-                It.IsAny<List<SupplierProductBarcode>>())).Returns(lookUps);
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>())).Returns(lookUps);
             
             mockBarcodeMapper.Setup(_ => _.GetNewProducts(
-                It.IsAny<List<SupplierProductBarcode>>(), 
-                It.IsAny<List<SupplierProductBarcode>>(), 
-                It.IsAny<List<string>>())).Returns(newProductCompanyB);
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<string>>())).Returns(newProductCompanyB);
+            
+            mockBarcodeMapper.Setup(_ => _.RemoveDuplicatedProducts(
+                It.IsAny<IEnumerable<SupplierProductBarcode>>())).Returns(noDupCompanyA);
 
             mockSuperCatalogMapper.Setup(_ => _.GetSuperCatalogFormat(
-                It.IsAny<List<SupplierProductBarcode>>(), 
-                It.IsAny<List<Catalog>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<Catalog>>(), 
                 It.Is<string>(s => s == "A"))).Returns(superCatalogA);
             
             mockSuperCatalogMapper.Setup(_ => _.GetSuperCatalogFormat(
-                It.IsAny<List<SupplierProductBarcode>>(), 
-                It.IsAny<List<Catalog>>(), 
+                It.IsAny<IEnumerable<SupplierProductBarcode>>(), 
+                It.IsAny<IEnumerable<Catalog>>(), 
                 It.Is<string>(s => s == "B"))).Returns(superCatalogB);
             
         }
@@ -115,18 +112,6 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 new()
                 {
                     Sku = "2222-1111-1111",
-                    Description = "Green Journeyman Backpack",
-                    Source = "A"
-                },
-                new()
-                {
-                    Sku = "2222-1111-1111",
-                    Description = "Journeyman Backpack",
-                    Source = "A"
-                },
-                new()
-                {
-                    Sku = "2222-1111-1112",
                     Description = "Frostmourne",
                     Source = "A"
                 },
@@ -148,11 +133,9 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 new List<SupplierProductBarcode>(),
                 new List<Catalog>(), 
                 new List<SupplierProductBarcode>(),
-                new List<Catalog>());
+                new List<Catalog>()).ToList();
             
-            superCatalog.Should().Equal(result);
-
-            throw new NotEmptyException();
+            superCatalog.Should().BeEquivalentTo(result);
         }
     }
 }

@@ -8,20 +8,23 @@ namespace CatalogMigrations.Services.Mapper
     public interface IBarcodeMapper
     {
         IEnumerable<string> GetExistingProductLookups(
-            List<SupplierProductBarcode> supplierProductBarcodesA,
-            List<SupplierProductBarcode> supplierProductBarcodesB);
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesB);
 
         IEnumerable<SupplierProductBarcode> GetNewProducts(
-            List<SupplierProductBarcode> supplierProductBarcodesA,
-            List<SupplierProductBarcode> supplierProductBarcodesB,
-            List<string> productLookup);
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA,
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
+            IEnumerable<string> productLookup);
+
+        IEnumerable<SupplierProductBarcode> RemoveDuplicatedProducts(
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodes);
     }
     
     public class BarcodeMapper : IBarcodeMapper
     {
         public IEnumerable<string> GetExistingProductLookups(
-            List<SupplierProductBarcode> supplierProductBarcodesA, 
-            List<SupplierProductBarcode>supplierProductBarcodesB)
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA, 
+            IEnumerable<SupplierProductBarcode>supplierProductBarcodesB)
         {
             var matchingBarcodes = supplierProductBarcodesA
                 .Select(_ => _.Barcode)
@@ -31,15 +34,13 @@ namespace CatalogMigrations.Services.Mapper
         } 
         
         public IEnumerable<SupplierProductBarcode> GetNewProducts(
-            List<SupplierProductBarcode> supplierProductBarcodesA, 
-            List<SupplierProductBarcode> supplierProductBarcodesB,
-            List<string> matchingBarcodes)
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesA, 
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
+            IEnumerable<string> matchingBarcodes)
         {
             var newProductList = new List<SupplierProductBarcode>();
             
-            var productsList = supplierProductBarcodesB.ToList();
-            
-            foreach (var product in productsList)
+            foreach (var product in supplierProductBarcodesB)
             {
                 if (!matchingBarcodes.Contains(product.Barcode))
                 {
@@ -50,7 +51,7 @@ namespace CatalogMigrations.Services.Mapper
         }
 
         public IEnumerable<SupplierProductBarcode> RemoveDuplicatedProducts(
-            List<SupplierProductBarcode> supplierProductBarcodes)
+            IEnumerable<SupplierProductBarcode> supplierProductBarcodes)
         {
             var distinctProducts = supplierProductBarcodes.GroupBy(_ => _.Sku)
                 .Select(p => p.First());
