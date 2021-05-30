@@ -39,8 +39,17 @@ namespace CatalogMigrations.Services.Helpers.Csv
         {
             using var streamReader = new StreamReader(path);
             using var csvReader = new CsvReader(streamReader, CultureInfo.InvariantCulture);
-            csvReader.Context.RegisterClassMap<SupplierProductBarcodeMapper>();
-            return csvReader.GetRecords<SupplierProductBarcode>().ToList();
+            try
+            {
+                csvReader.Context.RegisterClassMap<SupplierProductBarcodeMapper>();
+                return csvReader.GetRecords<SupplierProductBarcode>().ToList();
+            }
+            catch (ValidationException ex)
+            {
+                //ex.Data.Values has more info...
+            }
+
+            return null;
         }
 
         public void WriteSuperCatalogToFile(string path, string fileName, List<SuperCatalog> superCatalogs)

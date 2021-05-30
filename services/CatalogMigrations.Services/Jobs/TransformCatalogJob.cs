@@ -1,10 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
 using CatalogMigrations.DataModels.Models;
-using CatalogMigrations.Services.Helpers.Csv;
-using CatalogMigrations.Services.Helpers.Csv.Mappers;
 using CatalogMigrations.Services.Mapper;
 
 namespace CatalogMigrations.Services.Jobs
