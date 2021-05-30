@@ -29,14 +29,15 @@ namespace CatalogMigrations.Services.Mapper
         } 
         
         public IEnumerable<SupplierProductBarcode> GetNewProducts(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
-            List<string> productLookup)
+            List<string> matchingBarcodes)
         {
             var newProductList = new List<SupplierProductBarcode>();
-            var combinedProducts = supplierProductBarcodesA.Concat(supplierProductBarcodesB).ToList();
+            
+            var combinedProducts = supplierProductBarcodesA.ToList();
             
             foreach (var product in combinedProducts)
             {
-                if (!productLookup.Contains(product.Barcode))
+                if (!matchingBarcodes.Contains(product.Barcode))
                 {
                     newProductList.Add(product);
                 }

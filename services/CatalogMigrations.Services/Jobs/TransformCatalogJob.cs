@@ -10,7 +10,11 @@ namespace CatalogMigrations.Services.Jobs
 {
     public interface ITransformCatalogJob
     {
-        
+        List<SuperCatalog> TransformCatalog(
+            List<SupplierProductBarcode> supplierProductBarcodesA,
+            List<Catalog> catalogA,
+            List<SupplierProductBarcode> supplierProductBarcodesB,
+            List<Catalog> catalogB);
     }
     public class TransformCatalogJob : ITransformCatalogJob
     {
@@ -23,29 +27,26 @@ namespace CatalogMigrations.Services.Jobs
             _superCatalogMapper = superCatalogMapper;
         }
         
-        public void TransformCatalog(List<SupplierProductBarcode> supplierProductBarcodesA, 
-            List<Catalog> catalogA, List<Catalog> catalogB,
-            List<SupplierProductBarcode>supplierProductBarcodesB)
+        public List<SuperCatalog> TransformCatalog(
+            List<SupplierProductBarcode> supplierProductBarcodesA, 
+            List<Catalog> catalogA,
+            List<SupplierProductBarcode>supplierProductBarcodesB, 
+            List<Catalog> catalogB)
         {
             var productList = new List<SupplierProductBarcode>();
+            
+            // Get lookup of matching product
             var matchingBarcodeLookups = _barcodeMapper
                 .GetExistingProductLookups(supplierProductBarcodesA, supplierProductBarcodesB);
             
-            var companyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodesA,
+            // New products in company B
+            var newCompanyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodesA,
                 supplierProductBarcodesB, matchingBarcodeLookups).ToList();
             
-            foreach (var product in supplierProductBarcodesA)
-            {
-                if (!matchingBarcodeLookups.Contains(product.Barcode))
-                {
-                    productList.Add(product);
-                }
-            }
-
             var superCatalogA = _superCatalogMapper.GetSuperCatalogFormat(productList, catalogA, "A");
-            var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(companyBProducts, catalogB, "B");
+            var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(newCompanyBProducts, catalogB, "B");
 
-            var joinedCatalog = superCatalogA.Concat(superCatalogB);
+            var 
         }
     }
 }

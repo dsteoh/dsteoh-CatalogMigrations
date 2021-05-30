@@ -6,7 +6,7 @@ namespace CatalogMigrations.Services.Mapper
 {
     public interface ISuperCatalogMapper
     {
-        List<SuperCatalog> GetSuperCatalogFormat(
+        IEnumerable<SuperCatalog> GetSuperCatalogFormat(
             List<SupplierProductBarcode> supplierProductBarcode, 
             List<Catalog> catalog,
             string company);
@@ -14,7 +14,7 @@ namespace CatalogMigrations.Services.Mapper
     
     public class SuperCatalogMapper
     {
-        public List<SuperCatalog> GetSuperCatalogFormat(
+        public IEnumerable<SuperCatalog> GetSuperCatalogFormat(
             List<SupplierProductBarcode> supplierProductBarcode, 
             List<Catalog> catalog,
             string company)
@@ -29,7 +29,7 @@ namespace CatalogMigrations.Services.Mapper
                     Description = cat.Description,
                     Source = company
                 };
-            return query.ToList();
+            return query;
         }
     }
 }

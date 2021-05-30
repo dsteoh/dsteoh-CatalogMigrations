@@ -37,7 +37,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
             var supplierProductBarcodeList = _csvHelper.ParseToSupplierProductBarcodeToList(supplierProductBarcodePath);
 
             var matchedProducts = _superCatalogMapper.GetSuperCatalogFormat(supplierProductBarcodeList, catalogList, "A");
-            matchedProducts.Should().BeOfType<List<SuperCatalog>>();
+            matchedProducts.Should().BeOfType<IEnumerable<SuperCatalog>>();
         }    
     }
 }

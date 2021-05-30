@@ -89,7 +89,6 @@ namespace CatalogMigrations.Services.Tests.Mapper
             
             var uniqueProducts = _barcodeMapper.GetNewProducts(_barcodeA, _barcodeB, _productLookup);
             uniqueProducts.Should().Equals(result);
-
         }
     }
 }
