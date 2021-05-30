@@ -19,7 +19,7 @@ namespace CatalogMigrations.Services.Mapper
             IEnumerable<Catalog> catalog,
             string company)
         {
-            var query =
+            var superCatalog =
                 from spb in supplierProductBarcode
                 join cat in catalog
                 on spb.Sku equals cat.Sku
@@ -29,7 +29,7 @@ namespace CatalogMigrations.Services.Mapper
                     Description = cat.Description,
                     Source = company
                 };
-            return query;
+            return superCatalog;
         }
     }
 }
