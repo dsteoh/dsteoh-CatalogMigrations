@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "console", "console", "{A677
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogMigrations", "console\CatalogMigrations\CatalogMigrations.csproj", "{E7445AF8-43A1-4F87-B362-809BEE198C90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogMigrations.Tests", "console\CatalogMigrations.Tests\CatalogMigrations.Tests.csproj", "{9D6DF39D-1BCC-4DAC-8929-94FC03C2DDFA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogMigrations.Services", "services\CatalogMigrations.Services\CatalogMigrations.Services.csproj", "{42543411-109D-4102-823A-45344A84A29B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogMigrations.Services.Tests", "services\CatalogMigrations.Services.Tests\CatalogMigrations.Services.Tests.csproj", "{1D6FAECF-7A3D-4ABD-959B-14A1208662C1}"
@@ -29,10 +27,6 @@ Global
 		{E7445AF8-43A1-4F87-B362-809BEE198C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7445AF8-43A1-4F87-B362-809BEE198C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7445AF8-43A1-4F87-B362-809BEE198C90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D6DF39D-1BCC-4DAC-8929-94FC03C2DDFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D6DF39D-1BCC-4DAC-8929-94FC03C2DDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D6DF39D-1BCC-4DAC-8929-94FC03C2DDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D6DF39D-1BCC-4DAC-8929-94FC03C2DDFA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{42543411-109D-4102-823A-45344A84A29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42543411-109D-4102-823A-45344A84A29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42543411-109D-4102-823A-45344A84A29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,7 +45,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E7445AF8-43A1-4F87-B362-809BEE198C90} = {A67719E4-FB38-4EB9-94A7-BF62A46628F3}
-		{9D6DF39D-1BCC-4DAC-8929-94FC03C2DDFA} = {A67719E4-FB38-4EB9-94A7-BF62A46628F3}
 		{42543411-109D-4102-823A-45344A84A29B} = {D1028D50-1F0C-47C6-BD92-CABE1BDCAA55}
 		{1D6FAECF-7A3D-4ABD-959B-14A1208662C1} = {D1028D50-1F0C-47C6-BD92-CABE1BDCAA55}
 		{E3146952-0656-4E12-94C0-C8F0A1F69FF0} = {A3714A3F-E585-406E-9F71-851F93077669}

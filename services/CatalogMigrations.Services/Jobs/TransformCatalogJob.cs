@@ -48,9 +48,10 @@ namespace CatalogMigrations.Services.Jobs
                 productBarcodesB, matchingBarcodeLookups).ToList();
 
             var distinctA = _barcodeMapper.RemoveDuplicatedProducts(supplierProductBarcodes);
+            var distinctB = _barcodeMapper.RemoveDuplicatedProducts(newCompanyBProducts);
             
             var superCatalogA = _superCatalogMapper.GetSuperCatalogFormat(distinctA, catalogA, "A");
-            var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(newCompanyBProducts, catalogB, "B");
+            var superCatalogB = _superCatalogMapper.GetSuperCatalogFormat(distinctB, catalogB, "B");
 
             return superCatalogA.Concat(superCatalogB);
         }

@@ -12,7 +12,7 @@ namespace CatalogMigrations.Services.Mapper
             string company);
     }
     
-    public class SuperCatalogMapper
+    public class SuperCatalogMapper: ISuperCatalogMapper
     {
         public IEnumerable<SuperCatalog> GetSuperCatalogFormat(
             IEnumerable<SupplierProductBarcode> supplierProductBarcode, 
