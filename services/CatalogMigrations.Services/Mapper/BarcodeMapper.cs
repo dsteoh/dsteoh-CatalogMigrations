@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CatalogMigrations.DataModels.Models;
@@ -18,7 +19,8 @@ namespace CatalogMigrations.Services.Mapper
     
     public class BarcodeMapper : IBarcodeMapper
     {
-        public IEnumerable<string> GetExistingProductLookups(List<SupplierProductBarcode> supplierProductBarcodesA, 
+        public IEnumerable<string> GetExistingProductLookups(
+            List<SupplierProductBarcode> supplierProductBarcodesA, 
             List<SupplierProductBarcode>supplierProductBarcodesB)
         {
             var matchingBarcodes = supplierProductBarcodesA
@@ -28,7 +30,9 @@ namespace CatalogMigrations.Services.Mapper
             return matchingBarcodes;
         } 
         
-        public IEnumerable<SupplierProductBarcode> GetNewProducts(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
+        public IEnumerable<SupplierProductBarcode> GetNewProducts(
+            List<SupplierProductBarcode> supplierProductBarcodesA, 
+            List<SupplierProductBarcode> supplierProductBarcodesB,
             List<string> matchingBarcodes)
         {
             var newProductList = new List<SupplierProductBarcode>();
@@ -43,6 +47,15 @@ namespace CatalogMigrations.Services.Mapper
                 }
             }
             return newProductList;
+        }
+
+        public IEnumerable<SupplierProductBarcode> RemoveDuplicatedProducts(
+            List<SupplierProductBarcode> supplierProductBarcodes)
+        {
+            var distinctProducts = supplierProductBarcodes.GroupBy(_ => _.Sku)
+                .Select(p => p.First());
+
+            return distinctProducts;
         }
     }
 }

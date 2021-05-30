@@ -129,7 +129,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 }
             };
             
-            var noDupProducts = _barcodeMapper.RemoveDuplicates(_barcodeA);
+            var noDupProducts = _barcodeMapper.RemoveDuplicatedProducts(_barcodeA).ToList();
             noDupProducts.Should().BeEquivalentTo(result);
         }
     }
