@@ -15,7 +15,6 @@ namespace CatalogMigrations
         {
             _csvParser = csvParser;
             _transformCatalogJob = catalogJob;
-
         }
 
         public void Run()
@@ -26,16 +25,17 @@ namespace CatalogMigrations
             var sampleDataPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestData");
             var resultPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestResults");
 
-            Console.WriteLine($@"The default path is set to {sampleDataPath}" +
-                              $"\nEnter your barcodeA.csv full path to start (leave empty if you want to use the default path) Press enter to use default" +
-                              $"\n{sampleDataPath}" +
-                              $"\nTo quit type exit");
-
-            try
+            while (true)
             {
+                Console.WriteLine($@"Default files path is set to {sampleDataPath}" +
+                                  $"\n****Option 1****: If you want to set run the test files under {sampleDataPath} press enter" +
+                                  $"\n****Option 2****: Enter full path of barcodeA.csv to start" +
+                                  $"\n****Option 3****: Place custom Barcodes/Catalogs/Suppliers.csv files under the path {sampleDataPath}" +
+                                  $"\n****Note**** Files must follow the naming schema barcodesA.csv, catalogA.csv, supplierA.csv");
+
                 var input = Console.ReadLine();
 
-                while (input != "exit")
+                try
                 {
                     if (!string.IsNullOrWhiteSpace(input))
                     {
@@ -79,13 +79,12 @@ namespace CatalogMigrations
                         Console.WriteLine("File" + "SuperCatalog.csv " + "created at " + resultPath);
                         Console.WriteLine(
                             "Enter path for barcodeA.csv again or type exit to stop application.");
-                        input = Console.ReadLine();
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
     }
