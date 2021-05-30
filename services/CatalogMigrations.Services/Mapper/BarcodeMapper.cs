@@ -10,7 +10,7 @@ namespace CatalogMigrations.Services.Mapper
             List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB);
 
-        IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(
+        IEnumerable<SupplierProductBarcode> GetNewProducts(
             List<SupplierProductBarcode> supplierProductBarcodesA,
             List<SupplierProductBarcode> supplierProductBarcodesB,
             List<string> productLookup);
@@ -28,15 +28,16 @@ namespace CatalogMigrations.Services.Mapper
             return matchingBarcodes;
         } 
         
-        public IEnumerable<SupplierProductBarcode> GetNewProductsFromSku(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
-            List<string> productLookup)
+        public IEnumerable<SupplierProductBarcode> GetNewProducts(List<SupplierProductBarcode> supplierProductBarcodesA, List<SupplierProductBarcode> supplierProductBarcodesB,
+            List<string> matchingBarcodes)
         {
             var newProductList = new List<SupplierProductBarcode>();
-            var combinedProducts = supplierProductBarcodesA.Concat(supplierProductBarcodesB).ToList();
+            
+            var combinedProducts = supplierProductBarcodesA.ToList();
             
             foreach (var product in combinedProducts)
             {
-                if (!productLookup.Contains(product.Barcode))
+                if (!matchingBarcodes.Contains(product.Barcode))
                 {
                     newProductList.Add(product);
                 }
