@@ -27,8 +27,8 @@ namespace CatalogMigrations.Services.Tests.Helpers.Csv
             var path = Path.Combine(Path.GetDirectoryName(_projectDirectory),"TestData", "Catalogs","catalogA.csv");
             var catalogList = _csvHelper.ParseToCatalogsToList(path);
             catalogList.ToList().Should().BeOfType<List<Catalog>>();
-        } 
-        
+        }
+
         [Fact]
         public void ShouldDeserialize_SupplierCsv_ToList()
         {
@@ -36,7 +36,7 @@ namespace CatalogMigrations.Services.Tests.Helpers.Csv
             var supplierList = _csvHelper.ParseToSupplierToList(path);
             supplierList.Should().BeOfType<List<Supplier>>();
         }
-        
+
         [Fact]
         public void ShouldDeserialize_SupplierProductBarcodeCsv_ToList()
         {

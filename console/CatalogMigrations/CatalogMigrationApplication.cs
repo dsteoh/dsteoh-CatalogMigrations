@@ -12,7 +12,7 @@ namespace CatalogMigrations
         private ITransformCatalogJob _transformCatalogJob;
         private string workingDirectory = Environment.CurrentDirectory;
 
-        
+
         public CatalogMigrationApplication(ICsvParser csvParser, ITransformCatalogJob catalogJob)
         {
             _csvParser = csvParser;

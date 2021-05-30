@@ -72,7 +72,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                 "z2783613083800",
             };
         }
-        
+
         [Fact]
         public void GetExistingProductLookups_ShouldReturn_Lookups()
         {
@@ -98,7 +98,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                     SupplierId = 3
                 },
             };
-            
+
             var newProducts = _barcodeMapper.GetNewProducts(_barcodeA, _barcodeB, _productLookup);
             newProducts.Should().BeEquivalentTo(result);
 
@@ -128,7 +128,7 @@ namespace CatalogMigrations.Services.Tests.Mapper
                     SupplierId = 2
                 }
             };
-            
+
             var noDupProducts = _barcodeMapper.RemoveDuplicatedProducts(_barcodeA).ToList();
             noDupProducts.Should().BeEquivalentTo(result);
         }
