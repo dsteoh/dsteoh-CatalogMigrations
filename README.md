@@ -14,6 +14,6 @@ Using a command line tool navigate to the path
 Run `dotnet run`
 
 ## The solution
-![alt text](https://drive.google.com/uc?id=1EIg0OEIx1jz1414gqlHZ0yrxFuLtqRsO/view?usp=sharing)
+![alt text](https://drive.google.com/uc?id=1EIg0OEIx1jz1414gqlHZ0yrxFuLtqRsO)
 
 
