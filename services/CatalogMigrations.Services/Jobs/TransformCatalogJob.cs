@@ -17,6 +17,7 @@ namespace CatalogMigrations.Services.Jobs
             IEnumerable<SupplierProductBarcode> supplierProductBarcodesB,
             IEnumerable<Catalog> catalogB);
     }
+
     public class TransformCatalogJob : ITransformCatalogJob
     {
         private IBarcodeMapper _barcodeMapper;
@@ -34,8 +35,6 @@ namespace CatalogMigrations.Services.Jobs
             IEnumerable<SupplierProductBarcode>supplierProductBarcodesB,
             IEnumerable<Catalog> catalogB)
         {
-            var productList = new List<SupplierProductBarcode>();
-
             // Get lookup of matching product
             var supplierProductBarcodes = supplierProductBarcodesA.ToList();
             var productBarcodesB = supplierProductBarcodesB.ToList();
