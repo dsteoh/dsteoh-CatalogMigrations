@@ -10,6 +10,7 @@ using CsvHelper.TypeConversion;
 using FluentAssertions;
 using Moq;
 using Xunit;
+using Xunit.Sdk;
 
 namespace CatalogMigrations.Services.Tests.Jobs
 {
@@ -149,8 +150,9 @@ namespace CatalogMigrations.Services.Tests.Jobs
                 new List<SupplierProductBarcode>(),
                 new List<Catalog>());
             
-            superCatalog.Should().Equals(result);
+            superCatalog.Should().Equal(result);
 
+            throw new NotEmptyException();
         }
     }
 }

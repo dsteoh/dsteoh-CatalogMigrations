@@ -38,7 +38,7 @@ namespace CatalogMigrations.Services.Jobs
             
             // Get lookup of matching product
             var matchingBarcodeLookups = _barcodeMapper
-                .GetExistingProductLookups(supplierProductBarcodesA, supplierProductBarcodesB);
+                .GetExistingProductLookups(supplierProductBarcodesA, supplierProductBarcodesB).ToList();
             
             // New products in company B
             var newCompanyBProducts = _barcodeMapper.GetNewProducts(supplierProductBarcodesA,
