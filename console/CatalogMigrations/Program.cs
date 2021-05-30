@@ -1,5 +1,4 @@
-﻿using System;
-using CatalogMigrations.Services.Helpers.Csv;
+﻿using CatalogMigrations.Services.Helpers.Csv;
 using CatalogMigrations.Services.Jobs;
 using CatalogMigrations.Services.Mapper;
 using Microsoft.Extensions.DependencyInjection;
