@@ -19,8 +19,8 @@ namespace CatalogMigrations
 
         public void Run()
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.Parent.Parent.FullName;
+            var workingDirectory = Environment.CurrentDirectory;
+            var projectDirectory = Directory.GetParent(workingDirectory).Parent.FullName;
 
             var sampleDataPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestData");
             var resultPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestResults");
@@ -28,17 +28,6 @@ namespace CatalogMigrations
             var catalogAPath = Path.Combine(sampleDataPath, "Catalogs", "catalogA.csv");
             var barcodeBPath = Path.Combine(sampleDataPath, "Barcodes", "barcodesB.csv");
             var catalogBPath = Path.Combine(sampleDataPath, "Catalogs", "catalogB.csv");
-
-            Console.WriteLine(
-                $"\n=====================================" +
-                $"\n[ Migration Catalog Project started1 ]" +
-                $"\n=====================================\n" +
-                $"\n****Option 1****: Enter full path of barcodeA.csv to start" +
-                $"\n****Option 2****: If you want to set run the test files under {sampleDataPath} press enter" +
-                $"\n****Option 3****: Place custom Barcodes\\Catalogs\\Suppliers.csv files under the path {sampleDataPath}" +
-                $"\n++++Note++++" +
-                $"\nFiles must follow the naming schema barcodesA.csv, catalogA.csv, supplierA.csv for option 3\n"
-                );
 
             Console.WriteLine(
                 $"\n=====================================" +
