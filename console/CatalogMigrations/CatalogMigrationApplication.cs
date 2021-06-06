@@ -28,7 +28,7 @@ namespace CatalogMigrations
             var catalogAPath = Path.Combine(sampleDataPath, "Catalogs", "catalogA.csv");
             var barcodeBPath = Path.Combine(sampleDataPath, "Barcodes", "barcodesB.csv");
             var catalogBPath = Path.Combine(sampleDataPath, "Catalogs", "catalogB.csv");
-            
+
             Console.WriteLine(
                 $"\n=====================================" +
                 $"\n[ Migration Catalog Project started1 ]" +
@@ -42,7 +42,7 @@ namespace CatalogMigrations
 
             Console.WriteLine(
                 $"\n=====================================" +
-                $"\n[ Migration Catalog Project started1 ]" +
+                $"\n[ Migration Catalog Project started ]" +
                 $"\n=====================================\n" +
                 $"\n****Option 1****: Enter full path of barcodeA.csv to start" +
                 $"\n****Option 2****: If you want to set run the test files under {sampleDataPath} press enter" +
