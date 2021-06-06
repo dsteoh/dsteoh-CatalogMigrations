@@ -24,6 +24,21 @@ namespace CatalogMigrations
 
             var sampleDataPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestData");
             var resultPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestResults");
+            var barcodeAPath = Path.Combine(sampleDataPath, "Barcodes", "barcodesA.csv");
+            var catalogAPath = Path.Combine(sampleDataPath, "Catalogs", "catalogA.csv");
+            var barcodeBPath = Path.Combine(sampleDataPath, "Barcodes", "barcodesB.csv");
+            var catalogBPath = Path.Combine(sampleDataPath, "Catalogs", "catalogB.csv");
+            
+            Console.WriteLine(
+                $"\n=====================================" +
+                $"\n[ Migration Catalog Project started1 ]" +
+                $"\n=====================================\n" +
+                $"\n****Option 1****: Enter full path of barcodeA.csv to start" +
+                $"\n****Option 2****: If you want to set run the test files under {sampleDataPath} press enter" +
+                $"\n****Option 3****: Place custom Barcodes\\Catalogs\\Suppliers.csv files under the path {sampleDataPath}" +
+                $"\n++++Note++++" +
+                $"\nFiles must follow the naming schema barcodesA.csv, catalogA.csv, supplierA.csv for option 3\n"
+                );
 
             Console.WriteLine(
                 $"\n=====================================" +
@@ -74,11 +89,11 @@ namespace CatalogMigrations
                     else if (input != null && !input.Equals("exit"))
                     {
                         var barcodesA =
-                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath + "\\Barcodes\\barcodesA.csv");
+                            _csvParser.ParseToSupplierProductBarcodeToList(barcodeAPath);
                         var barcodesB =
-                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath + "\\Barcodes\\barcodesB.csv");
-                        var catalogA = _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogA.csv");
-                        var catalogB = _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogB.csv");
+                            _csvParser.ParseToSupplierProductBarcodeToList(barcodeBPath);
+                        var catalogA = _csvParser.ParseToCatalogsToList(catalogAPath);
+                        var catalogB = _csvParser.ParseToCatalogsToList(catalogBPath);
 
                         var superCatalogs = _transformCatalogJob
                             .TransformCatalog(barcodesA, catalogA, barcodesB, catalogB).ToList();
