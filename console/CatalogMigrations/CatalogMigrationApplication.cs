@@ -24,7 +24,11 @@ namespace CatalogMigrations
 
             var sampleDataPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestData");
             var resultPath = Path.Combine(projectDirectory, "services", "CatalogMigrations.Services.Tests", "TestResults");
-
+            var barcodeAPath = Path.Combine(sampleDataPath, "Barcodes", "barcodesA.csv");
+            var catalogAPath = Path.Combine(sampleDataPath, "Catalogs", "catalogA.csv");
+            var barcodeBPath = Path.Combine(sampleDataPath, "Barcodes", "barcodesB.csv");
+            var catalogBPath = Path.Combine(sampleDataPath, "Catalogs", "catalogB.csv");
+            
             Console.WriteLine(
                 $"\n=====================================" +
                 $"\n[ Migration Catalog Project started1 ]" +
@@ -74,11 +78,11 @@ namespace CatalogMigrations
                     else if (input != null && !input.Equals("exit"))
                     {
                         var barcodesA =
-                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath + "\\Barcodes\\barcodesA.csv");
+                            _csvParser.ParseToSupplierProductBarcodeToList(barcodeAPath);
                         var barcodesB =
-                            _csvParser.ParseToSupplierProductBarcodeToList(sampleDataPath + "\\Barcodes\\barcodesB.csv");
-                        var catalogA = _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogA.csv");
-                        var catalogB = _csvParser.ParseToCatalogsToList(sampleDataPath + "\\Catalogs\\catalogB.csv");
+                            _csvParser.ParseToSupplierProductBarcodeToList(barcodeBPath);
+                        var catalogA = _csvParser.ParseToCatalogsToList(catalogAPath);
+                        var catalogB = _csvParser.ParseToCatalogsToList(catalogBPath);
 
                         var superCatalogs = _transformCatalogJob
                             .TransformCatalog(barcodesA, catalogA, barcodesB, catalogB).ToList();

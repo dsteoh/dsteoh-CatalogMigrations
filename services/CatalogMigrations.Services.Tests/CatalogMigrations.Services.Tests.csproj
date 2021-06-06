@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="TestData" />
-    <Folder Include="TestResults" />
   </ItemGroup>
 
   <ItemGroup>
